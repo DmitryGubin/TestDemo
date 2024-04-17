@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1fbdce3ba993415da5872fdf8f12e0a6" Name="Diagram1">
+        <EntityTypeShape EntityType="demoModel.client" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="demoModel.Implemetr" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="demoModel.request" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="demoModel.role" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="demoModel.status" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="demoModel.Type" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="demoModel.user" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <AssociationConnector Association="demoModel.FK_request_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="demoModel.FK_Implemetr_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="demoModel.FK_request_ToTable_1" ManuallyRouted="false" />
+        <AssociationConnector Association="demoModel.FK_request_ToTable_2" ManuallyRouted="false" />
+        <AssociationConnector Association="demoModel.FK_request_ToTable_3" ManuallyRouted="false" />
+        <AssociationConnector Association="demoModel.FK_user_ToTable" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,448 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище demoModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Implemetr">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="idUser" Type="int" />
+        </EntityType>
+        <EntityType Name="request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idClient" Type="int" />
+          <Property Name="idStatus" Type="int" />
+          <Property Name="DateRequest" Type="date" />
+          <Property Name="Discription" Type="nvarchar(max)" />
+          <Property Name="idType" Type="int" />
+          <Property Name="Oborud" Type="nvarchar" MaxLength="50" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="idImplementer" Type="int" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="status">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusReq" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="idRole" Type="int" />
+        </EntityType>
+        <Association Name="FK_Implemetr_ToTable">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="Implemetr" Type="Self.Implemetr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Implemetr">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_request_ToTable">
+          <End Role="client" Type="Self.client" Multiplicity="0..1" />
+          <End Role="request" Type="Self.request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="idClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_request_ToTable_1">
+          <End Role="Implemetr" Type="Self.Implemetr" Multiplicity="0..1" />
+          <End Role="request" Type="Self.request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Implemetr">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="idImplementer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_request_ToTable_2">
+          <End Role="status" Type="Self.status" Multiplicity="0..1" />
+          <End Role="request" Type="Self.request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="idStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_request_ToTable_3">
+          <End Role="Type" Type="Self.Type" Multiplicity="0..1" />
+          <End Role="request" Type="Self.request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="idType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_ToTable">
+          <End Role="role" Type="Self.role" Multiplicity="0..1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="idRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище demoModelContainer">
+          <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Implemetr" EntityType="Self.Implemetr" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="request" EntityType="Self.request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="role" EntityType="Self.role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="status" EntityType="Self.status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Implemetr_ToTable" Association="Self.FK_Implemetr_ToTable">
+            <End Role="user" EntitySet="user" />
+            <End Role="Implemetr" EntitySet="Implemetr" />
+          </AssociationSet>
+          <AssociationSet Name="FK_request_ToTable" Association="Self.FK_request_ToTable">
+            <End Role="client" EntitySet="client" />
+            <End Role="request" EntitySet="request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_request_ToTable_1" Association="Self.FK_request_ToTable_1">
+            <End Role="Implemetr" EntitySet="Implemetr" />
+            <End Role="request" EntitySet="request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_request_ToTable_2" Association="Self.FK_request_ToTable_2">
+            <End Role="status" EntitySet="status" />
+            <End Role="request" EntitySet="request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_request_ToTable_3" Association="Self.FK_request_ToTable_3">
+            <End Role="Type" EntitySet="Type" />
+            <End Role="request" EntitySet="request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_ToTable" Association="Self.FK_user_ToTable">
+            <End Role="role" EntitySet="role" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="demoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="request" Relationship="Self.FK_request_ToTable" FromRole="client" ToRole="request" />
+        </EntityType>
+        <EntityType Name="Implemetr">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idUser" Type="Int32" />
+          <NavigationProperty Name="user" Relationship="Self.FK_Implemetr_ToTable" FromRole="Implemetr" ToRole="user" />
+          <NavigationProperty Name="request" Relationship="Self.FK_request_ToTable_1" FromRole="Implemetr" ToRole="request" />
+        </EntityType>
+        <EntityType Name="request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idClient" Type="Int32" />
+          <Property Name="idStatus" Type="Int32" />
+          <Property Name="DateRequest" Type="DateTime" Precision="0" />
+          <Property Name="Discription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="idType" Type="Int32" />
+          <Property Name="Oborud" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="idImplementer" Type="Int32" />
+          <NavigationProperty Name="client" Relationship="Self.FK_request_ToTable" FromRole="request" ToRole="client" />
+          <NavigationProperty Name="Implemetr" Relationship="Self.FK_request_ToTable_1" FromRole="request" ToRole="Implemetr" />
+          <NavigationProperty Name="status" Relationship="Self.FK_request_ToTable_2" FromRole="request" ToRole="status" />
+          <NavigationProperty Name="Type" Relationship="Self.FK_request_ToTable_3" FromRole="request" ToRole="Type" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_ToTable" FromRole="role" ToRole="user" />
+        </EntityType>
+        <EntityType Name="status">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusReq" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="request" Relationship="Self.FK_request_ToTable_2" FromRole="status" ToRole="request" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="request" Relationship="Self.FK_request_ToTable_3" FromRole="Type" ToRole="request" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="idRole" Type="Int32" />
+          <NavigationProperty Name="Implemetr" Relationship="Self.FK_Implemetr_ToTable" FromRole="user" ToRole="Implemetr" />
+          <NavigationProperty Name="role" Relationship="Self.FK_user_ToTable" FromRole="user" ToRole="role" />
+        </EntityType>
+        <Association Name="FK_request_ToTable">
+          <End Role="client" Type="Self.client" Multiplicity="0..1" />
+          <End Role="request" Type="Self.request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="idClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Implemetr_ToTable">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="Implemetr" Type="Self.Implemetr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Implemetr">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_request_ToTable_1">
+          <End Role="Implemetr" Type="Self.Implemetr" Multiplicity="0..1" />
+          <End Role="request" Type="Self.request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Implemetr">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="idImplementer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_request_ToTable_2">
+          <End Role="status" Type="Self.status" Multiplicity="0..1" />
+          <End Role="request" Type="Self.request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="idStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_request_ToTable_3">
+          <End Role="Type" Type="Self.Type" Multiplicity="0..1" />
+          <End Role="request" Type="Self.request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="idType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_ToTable">
+          <End Role="role" Type="Self.role" Multiplicity="0..1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="idRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="demoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="client" EntityType="Self.client" />
+          <EntitySet Name="Implemetr" EntityType="Self.Implemetr" />
+          <EntitySet Name="request" EntityType="Self.request" />
+          <EntitySet Name="role" EntityType="Self.role" />
+          <EntitySet Name="status" EntityType="Self.status" />
+          <EntitySet Name="Type" EntityType="Self.Type" />
+          <EntitySet Name="user" EntityType="Self.user" />
+          <AssociationSet Name="FK_request_ToTable" Association="Self.FK_request_ToTable">
+            <End Role="client" EntitySet="client" />
+            <End Role="request" EntitySet="request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Implemetr_ToTable" Association="Self.FK_Implemetr_ToTable">
+            <End Role="user" EntitySet="user" />
+            <End Role="Implemetr" EntitySet="Implemetr" />
+          </AssociationSet>
+          <AssociationSet Name="FK_request_ToTable_1" Association="Self.FK_request_ToTable_1">
+            <End Role="Implemetr" EntitySet="Implemetr" />
+            <End Role="request" EntitySet="request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_request_ToTable_2" Association="Self.FK_request_ToTable_2">
+            <End Role="status" EntitySet="status" />
+            <End Role="request" EntitySet="request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_request_ToTable_3" Association="Self.FK_request_ToTable_3">
+            <End Role="Type" EntitySet="Type" />
+            <End Role="request" EntitySet="request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_ToTable" Association="Self.FK_user_ToTable">
+            <End Role="role" EntitySet="role" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище demoModelContainer" CdmEntityContainer="demoEntities">
+          <EntitySetMapping Name="client">
+            <EntityTypeMapping TypeName="demoModel.client">
+              <MappingFragment StoreEntitySet="client">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Implemetr">
+            <EntityTypeMapping TypeName="demoModel.Implemetr">
+              <MappingFragment StoreEntitySet="Implemetr">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="request">
+            <EntityTypeMapping TypeName="demoModel.request">
+              <MappingFragment StoreEntitySet="request">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="idClient" ColumnName="idClient" />
+                <ScalarProperty Name="idStatus" ColumnName="idStatus" />
+                <ScalarProperty Name="DateRequest" ColumnName="DateRequest" />
+                <ScalarProperty Name="Discription" ColumnName="Discription" />
+                <ScalarProperty Name="idType" ColumnName="idType" />
+                <ScalarProperty Name="Oborud" ColumnName="Oborud" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="idImplementer" ColumnName="idImplementer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="role">
+            <EntityTypeMapping TypeName="demoModel.role">
+              <MappingFragment StoreEntitySet="role">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Role1" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="status">
+            <EntityTypeMapping TypeName="demoModel.status">
+              <MappingFragment StoreEntitySet="status">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StatusReq" ColumnName="StatusReq" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Type">
+            <EntityTypeMapping TypeName="demoModel.Type">
+              <MappingFragment StoreEntitySet="Type">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="demoModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
