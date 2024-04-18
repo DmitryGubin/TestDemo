@@ -1,0 +1,131 @@
+Отображение данных в листоксе
+foreach (var entity in entities.Zayavka)
+{
+    List_zakaz.Items.Add(entity);
+}
+Отображение данных в комбобоксе
+foreach (var entity in entities.Faulttype)
+{
+    combo_type.Items.Add(entity);
+}
+
+combo_status.Text = selectedZak.Tovar.ToString(); // отображение данных в комбобоксе
+date_zayavki_txt.Text = selectedZak.Zayavka_Data.ToString(); // отображение данных в тексбоксе
+
+Проверка есть ли такой пользователь, в методе не забыть указать async
+var user = await entities.User.FirstOrDefaultAsync(x => x.User_Password == password && x.User_Login == login);
+
+Добавление данных в бд (если редактирование и добавление на отдельную кнопку то не забудь создать перменную и добавить в нее все элементы var selectedZak = List_zakaz.SelectedItem as Zayavka;)
+Zayavka selectedTovar = new Zayavka(); // создание экземпляра для записи данных
+entities.Zayavka.Add(selectedTovar);//добавление экземпляра в бд
+selectedTovar.Tovar = combo_tovar.SelectedItem as Tovar; //запись выбранных данных из комбобокса
+selectedTovar.Zayavka_User_Id = id_client; //передача уникального айди пользователя
+selectedTovar.Zayavka_Data = DateTime.Now;//считывание времени подачи заявки
+selectedTovar.Zayavka_Status = "В ожидании";//указание статуса заявки
+entities.SaveChanges();//сохранение данных в бд
+List_zakaz.Items.Add(selectedTovar);//добавление данных в листбокс
+List_zakaz.Items.Refresh();//обновление листокса
+MessageBox.Show("Заказ создан!", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);//сообщение об успешном выполнений
+
+Отображение количества заявко за день
+int count = 0;
+                foreach ( var item in Entities.Zayavka)
+                {
+                    if (item.Status.Name == "Выполнено")
+                    {
+                        count ++;
+                    }
+                }
+
+Фильтрация
+Код для работы фильтра
+try
+            {
+                Zayavka_List.Items.Clear(); //очищаем лист
+                var a = Status_Combo_Box.SelectedItem as Status; //записываем в переменную элемент из комбо как объект таблицы
+                var found = Entities.Zayavka_List.Where(att => att.Status.Name.ToLower() == a.Name.ToLower()); // запрос где мы сравниваем название статуса из заявки с названием из комбобокса
+                foreach (var items in found)
+                {
+                    Zayavka_List.Items.Add(items);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+При очистки полей добавить
+HistoryList.Items.Clear(); //очистить листбокс
+ nameFIO_txt.Text = "";
+ userDate.Text = "";
+ zP_txt.Text = "";
+ List_workes.SelectedIndex = -1;
+ Search_combo.SelectedIndex = -1;
+foreach (var entity in entities.Zayavka)//добавить записи снова
+{
+    List_zakaz.Items.Add(entity);
+}
+
+Код для поиска 
+List_zakaz.Items.Clear();
+var list1 = entities.Zayavka.ToList();
+list1 =list1.Where(a => a.Zayavka_Id.ToString().ToLower().Contains(serch_txt.Text.ToLower()) || a.Zayavka_Status.ToLower().Contains(serch_txt.Text.ToLower())|| a.Tovar.Tovar_Name.ToLower().Contains(serch_txt.Text.ToLower())).ToList();
+foreach (var item in list1)
+{
+    List_zakaz.Items.Add(item);
+}
+
+Передача данных между окнами
+if (user.User_Role_Id == 1) 
+{
+    MessageBox.Show("Вы вошли как: " + user.User_Fullname);
+    User_window user_Window = new User_window(user.User_Id);//тут передается 1 параметр, а именно айди пользователя
+    user_Window.Show();
+    this.Close();
+}
+public User_window(int user)//В окне, куда мы передаем данные так же указать получаемые данные
+int id_client;// указываем переменную, которая принимает данные (после ентетис)
+id_client = user;//в иницилизации присваиваем нашей переменной передаваемые данные
+
+
+Авторизация
+ private async void voiti_but_Click(object sender, RoutedEventArgs e)
+ {
+     string login = login_txt.Text.Trim();
+     string password = password_txt.Text.Trim();
+     var user = await entities.User.FirstOrDefaultAsync(x => x.User_Password == password && x.User_Login == login);
+     if (login_txt.Text == "" || password_txt.Text == "")
+     {
+         MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+     }
+     else
+     {
+         if(user != null)
+         {
+             if (user.User_Role_Id == 1) 
+             {
+                 MessageBox.Show("Вы вошли как: " + user.User_Fullname);
+                 User_window user_Window = new User_window(user.User_Id);
+                 user_Window.Show();
+                 this.Close();
+             }
+             else if (user.User_Role_Id == 2)
+             {
+                 MessageBox.Show("Вы вошли как: " + user.User_Fullname);
+                 Admin_window admin_window = new Admin_window();
+                 admin_window.Show();
+                 this.Close();
+             }
+             else if (user.User_Role_Id == 3)
+             {
+                 MessageBox.Show("Вы вошли как: " + user.User_Fullname);
+                 Manag_window1 manag_window1 = new Manag_window1();
+                 manag_window1.Show();
+                 this.Close();
+             }
+             else if (user.User_Role_Id == 4)
+             {
+                 MessageBox.Show("Вы вошли как: " + user.User_Fullname);
+                 performer_Window performer_window = new performer_Window();
+                 performer_window.Show();
+                 this.Close();
+             }
