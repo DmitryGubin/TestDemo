@@ -139,3 +139,18 @@ namespace TestDemo.Request
         }
     }
 }
+
+/*public void UpdateListBox()
+{
+    // Очистить ListBox
+    ListBox.Items.Clear();
+
+    // Получить данные пользователя
+    var userTimetables = entities.timetable.Where(t => t.employee.Id == _userId);
+
+    // Добавить данные пользователя в ListBox
+    foreach (var timetable in userTimetables)
+    {
+        ListBox.Items.Add(timetable);
+    }
+}*/
