@@ -154,3 +154,27 @@ namespace TestDemo.Request
         ListBox.Items.Add(timetable);
     }
 }*/
+
+/*private void Button_Delete(object sender, RoutedEventArgs e)
+{
+    var result = MessageBox.Show("Вы действительно хотите удалить запись?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+    if (result == MessageBoxResult.No)
+        return;
+
+    var timetable = ListHours.SelectedItem as timetable;
+    if (timetable != null)
+    {
+        entities.timetable.Remove(timetable);
+
+        entities.SaveChanges();
+        TextDate.SelectedDate = null;
+        TextTimeIn.Clear();
+        TextTimeOut.Clear();
+
+        ComboBoxName.SelectedIndex = -1;
+        ListHours.Items.Remove(timetable);
+
+        ComboBoxName.SelectedIndex = -1;
+    }
+    MessageBox.Show("Данные удалены!", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
+}*/
